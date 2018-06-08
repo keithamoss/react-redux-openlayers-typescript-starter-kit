@@ -1,22 +1,70 @@
-import * as React from 'react';
-import './App.css';
+import { BodyContainer, ResponsiveAppBar, ResponsiveDrawer } from "material-ui-responsive-drawer"
+// import AppBar from "material-ui/AppBar"
+// import Snackbar from "material-ui/Snackbar"
+import LinearProgress from "material-ui/LinearProgress"
+import * as React from "react"
+// import styled from "styled-components"
+import { Route } from "react-router-dom"
+import "./App.css"
+import { IAppModule } from "./redux/modules/interfaces"
+// import { MapsMap, MapsAddLocation, ActionSearch, ActionStore, ActionInfo, HardwareTv, CommunicationEmail } from "material-ui/svg-icons"
+// import Drawer from "material-ui/Drawer"
+// import { BottomNavigation, BottomNavigationItem } from "material-ui/BottomNavigation"
+// import Paper from "material-ui/Paper"
+// import { List, ListItem } from "material-ui/List"
+// import Subheader from "material-ui/Subheader"
+// import Divider from "material-ui/Divider"
+// const logo = require("./logo.svg")
+// const TitleContainer = styled.div`
+//     display: flex;
+//     align-items: center;
+//     font-size: 20px !important;
+// `
+// const TitleLogo = styled.img`
+//     height: 32px;
+//     margin-right: 10px;
+// `
+import AboutPage from "./static/About/About"
 
-const logo = require('./logo.svg');
-
-class App extends React.Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.tsx</code> and save to reload.
-        </p>
-      </div>
-    );
-  }
+export interface IProps {
+    muiThemePalette: any
+    app: IAppModule
+    defaultBreakPoint: string
+    isResponsiveAndOverBreakPoint: boolean
+    toggleSidebar: any
 }
 
-export default App;
+class App extends React.Component<IProps, {}> {
+    render() {
+        const { muiThemePalette, app, defaultBreakPoint, isResponsiveAndOverBreakPoint } = this.props
+
+        const styles: React.CSSProperties = {
+            linearProgressStyle: {
+                position: "fixed",
+                top: "0px",
+                zIndex: 1200,
+                display: app.requestsInProgress > 0 ? "block" : "none",
+            },
+        }
+
+        return (
+            <div className="page">
+                <ResponsiveDrawer breakPoint={defaultBreakPoint}>
+                    {isResponsiveAndOverBreakPoint === true && <div>Item</div>}
+                </ResponsiveDrawer>
+
+                <BodyContainer breakPoint={defaultBreakPoint}>
+                    <LinearProgress mode="indeterminate" color={muiThemePalette.accent3Color} style={styles.linearProgressStyle} />
+
+                    <ResponsiveAppBar breakPoint={defaultBreakPoint} title={"Starter Kit"} zDepth={0} />
+
+                    <div className="page-content">
+                        <Route path="/" component={AboutPage} />
+                    </div>
+                </BodyContainer>
+            </div>
+        )
+    }
+}
+
+export default App

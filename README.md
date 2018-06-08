@@ -1,3 +1,18 @@
+react-router@3.2.0
+react-router-redux@4.0.7
+@types/react-router@2.0.41
+@types/react-router-redux@4.0.36
+
+@types/history@2.0.49
+history/index"' has no exported member 'HistoryOptions'.
+
+
+
+
+
+
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 Below you will find some information on how to perform common tasks.<br>
